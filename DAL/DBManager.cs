@@ -92,6 +92,7 @@ namespace DAL
             {
                 database.GetTable(tableName).Rows[RowId][ColumnId] = value;
             }
+            
         }
         public string GetRowItem(string tableName, int ColumnId, int RowId)
         {
