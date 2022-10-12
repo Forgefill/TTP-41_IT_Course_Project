@@ -7,4 +7,4 @@
 
 ### діаграма класів
 
-![class diagram](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/img/ClassDiagram1.png?raw=true)
+![class diagram](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/img/ClassDiagram1.png)
