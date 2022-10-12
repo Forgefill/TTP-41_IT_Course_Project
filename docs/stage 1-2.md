@@ -7,4 +7,4 @@
 
 ### діаграма класів
 
-![class diagram](img/class diagram 1.png)
+![class diagram](img/ClassDiagram1.png)
