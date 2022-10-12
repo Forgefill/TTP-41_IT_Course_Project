@@ -23,4 +23,4 @@
 
 ## Діаграма прецедентів
 
-![Alt text](img/UseCase0.png?raw=true)
+![Use-Case stage 0](img/UseCase0.png?raw=true)
