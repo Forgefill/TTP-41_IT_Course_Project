@@ -15,14 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBTest", "DBTest\DBTest.csp
 		{48B13B66-318E-4D24-A91C-A7DFD417D6BB} = {48B13B66-318E-4D24-A91C-A7DFD417D6BB}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{52CF95A3-6BBC-4FA9-8DC5-E6CD8DEC8F7A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{9735738B-B4F2-4FBB-B727-CD4AC43367C2}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\OneDrive\Рабочий стол\DAL uml-class-diagram.png = ..\..\..\OneDrive\Рабочий стол\DAL uml-class-diagram.png
-		..\..\..\OneDrive\Рабочий стол\use-case DB diagram.drawio.png = ..\..\..\OneDrive\Рабочий стол\use-case DB diagram.drawio.png
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
