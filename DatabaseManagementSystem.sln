@@ -15,9 +15,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBTest", "DBTest\DBTest.csp
 		{48B13B66-318E-4D24-A91C-A7DFD417D6BB} = {48B13B66-318E-4D24-A91C-A7DFD417D6BB}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LocalWinForm", "LocalWinForm", "{647BB985-0D0A-435D-9749-9A086B0BBA52}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{647BB985-0D0A-435D-9749-9A086B0BBA52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{52CF95A3-6BBC-4FA9-8DC5-E6CD8DEC8F7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{9735738B-B4F2-4FBB-B727-CD4AC43367C2}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\OneDrive\Рабочий стол\DAL uml-class-diagram.png = ..\..\..\OneDrive\Рабочий стол\DAL uml-class-diagram.png
+		..\..\..\OneDrive\Рабочий стол\use-case DB diagram.drawio.png = ..\..\..\OneDrive\Рабочий стол\use-case DB diagram.drawio.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{FC58BDF1-75A8-409E-BD36-7F65CD7B3204}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinForm", "WinForm", "{97AAED87-90B6-4284-90C5-1E88E4C319E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +52,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{DBDA8834-7227-4AE7-BC06-9DF53589E3A7} = {647BB985-0D0A-435D-9749-9A086B0BBA52}
-		{48B13B66-318E-4D24-A91C-A7DFD417D6BB} = {647BB985-0D0A-435D-9749-9A086B0BBA52}
+		{DBDA8834-7227-4AE7-BC06-9DF53589E3A7} = {97AAED87-90B6-4284-90C5-1E88E4C319E7}
+		{48B13B66-318E-4D24-A91C-A7DFD417D6BB} = {FC58BDF1-75A8-409E-BD36-7F65CD7B3204}
 		{02AACFA6-8C9A-457A-9FFB-42D2BC8D95F2} = {647BB985-0D0A-435D-9749-9A086B0BBA52}
-		{52CF95A3-6BBC-4FA9-8DC5-E6CD8DEC8F7A} = {647BB985-0D0A-435D-9749-9A086B0BBA52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C22CD51-9AED-4E9A-B402-6EC923E61C6E}
