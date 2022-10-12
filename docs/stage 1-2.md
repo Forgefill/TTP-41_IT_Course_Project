@@ -7,4 +7,4 @@
 
 ### діаграма класів
 
-![class diagram](img/ClassDiagram1.png?raw=true)
+![class diagram](TTP-41_IT_Course_Project/img/ClassDiagram1.png?raw=true)
