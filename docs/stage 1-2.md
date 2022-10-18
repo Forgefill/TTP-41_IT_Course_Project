@@ -59,7 +59,7 @@
 
 Програмна частина з'єднує бізнес логіку класа DBManager вказаного на діаграмі класів і можливості WinForm. 
 Код проекту можна переглянути [на github](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/LocalDB/Form1.cs).
-## Unit-test
+## Unit-тести
 
 Для тестування бізнес логіки класу DBManager створено три unit-тести:
 
