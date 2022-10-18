@@ -48,7 +48,6 @@
             this.removeDuplicatesBtn = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.SaveAsBtn = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.databaseGridView)).BeginInit();
             this.SuspendLayout();
@@ -87,7 +86,7 @@
             // DbName
             // 
             this.DbName.AutoSize = true;
-            this.DbName.Location = new System.Drawing.Point(12, 22);
+            this.DbName.Location = new System.Drawing.Point(12, 19);
             this.DbName.Name = "DbName";
             this.DbName.Size = new System.Drawing.Size(116, 20);
             this.DbName.TabIndex = 1;
@@ -243,22 +242,11 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // SaveAsBtn
-            // 
-            this.SaveAsBtn.Location = new System.Drawing.Point(450, 9);
-            this.SaveAsBtn.Name = "SaveAsBtn";
-            this.SaveAsBtn.Size = new System.Drawing.Size(94, 29);
-            this.SaveAsBtn.TabIndex = 17;
-            this.SaveAsBtn.Text = "Save as";
-            this.SaveAsBtn.UseVisualStyleBackColor = true;
-            this.SaveAsBtn.Click += new System.EventHandler(this.SaveAsBtn_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.SaveAsBtn);
             this.Controls.Add(this.removeDuplicatesBtn);
             this.Controls.Add(this.deleteRowBtn);
             this.Controls.Add(this.AddRowBtn);
@@ -306,7 +294,6 @@
         private Button removeDuplicatesBtn;
         private FolderBrowserDialog folderBrowserDialog1;
         private OpenFileDialog openFileDialog1;
-        private Button SaveAsBtn;
         private SaveFileDialog saveFileDialog1;
     }
 }

@@ -1,5 +1,5 @@
 using DAL;
-using DAL.DataBaseEntities;
+using DAL.DatabaseEntities;
 using DAL.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,56 +15,57 @@ namespace DBTest
             string tableName = "tableName";
             string tableToDelete = "randomName";
 
-            DBManager dbManager = new DBManager(dbName);
-            dbManager.AddNewDB(dbName, "anyPath");
-            dbManager.AddTable(tableName);
-            dbManager.AddTable(tableToDelete);
-            dbManager.AddColumn(tableName, new EmailType());
-            dbManager.AddColumn(tableName, new IntegerType());
-            dbManager.AddRow(tableName);
-            dbManager.AddRow(tableName);
+            DBManager dbManager = new DBManager();
+            dbManager.AddDB(dbName);
+            dbManager.AddTable(dbName, tableName);
+            dbManager.AddTable(dbName, tableToDelete);
+            dbManager.AddColumn(dbName, tableName, new EmailType());
+            dbManager.AddColumn(dbName, tableName, new IntegerType());
+            dbManager.AddRow(dbName, tableName);
+            dbManager.AddRow(dbName, tableName);
 
-            Assert.AreEqual(dbManager.GetDbName(), dbName);
-            Assert.AreEqual(dbManager.GetTablesName().Count, 2);
-            Assert.AreEqual(dbManager.GetTable(tableName).columnTypes.Count, 2);
+            Assert.AreEqual(dbManager.GetDbsName().Where(x => x == dbName), dbName);
+            Assert.AreEqual(dbManager.GetAllTableName(dbName).Count, 2);
+            Assert.AreEqual(dbManager.GetTable(dbName, tableName).columnTypes.Count, 2);
 
-            dbManager.DeleteTable(tableToDelete);
-            dbManager.DeleteColumn(tableName, 1);
-            dbManager.DeleteRow(tableName, 1);
+            dbManager.DeleteTable(dbName, tableToDelete);
+            dbManager.DeleteColumn(dbName, tableName, 1);
+            dbManager.DeleteRow(dbName, tableName, 1);
 
-            Assert.AreEqual(dbManager.GetTablesName().Count, 1);
-            Assert.AreEqual(dbManager.GetTable(tableName).columnTypes.Count, 1);
-            Assert.AreEqual(dbManager.GetTable(tableName).Rows.Count, 1);
+            Assert.AreEqual(dbManager.GetAllTableName(dbName).Count, 1);
+            Assert.AreEqual(dbManager.GetTable(dbName, tableName).columnTypes.Count, 1);
+            Assert.AreEqual(dbManager.GetTable(dbName, tableName).Rows.Count, 1);
 
             string newTableName = "newTestTableName";
 
-            dbManager.EditTableName(tableName, newTableName);
+            dbManager.EditTableName(dbName, tableName, newTableName);
 
-            Assert.AreEqual(dbManager.GetTablesName()[0], newTableName);
+            Assert.AreEqual(dbManager.GetAllTableName(dbName)[0], newTableName);
         }
 
         [TestMethod]
         public void TestRemoveEqualMethod()
         {
+            string dbName = "dbName";
             string addedTable = "testTable";
 
             DBManager dbManager = new DBManager();
-            dbManager.AddNewDB(addedTable, "anyPath");
-            dbManager.AddTable(addedTable);
-            dbManager.AddColumn(addedTable, new EmailType());
-            dbManager.AddColumn(addedTable, new IntegerType());
-            dbManager.AddColumn(addedTable, new CharType());
-            dbManager.AddRow(addedTable);
-            dbManager.AddRow(addedTable);
-            dbManager.AddRow(addedTable);
+            dbManager.AddDB(dbName);
+            dbManager.AddTable(dbName, addedTable);
+            dbManager.AddColumn(dbName, addedTable, new EmailType());
+            dbManager.AddColumn(dbName, addedTable, new IntegerType());
+            dbManager.AddColumn(dbName, addedTable, new CharType());
+            dbManager.AddRow(dbName, addedTable);
+            dbManager.AddRow(dbName, addedTable);
+            dbManager.AddRow(dbName, addedTable);
 
             int exEqRowCount = 3;
-            Assert.AreEqual(dbManager.GetTable(addedTable).Rows.Count, exEqRowCount);
+            Assert.AreEqual(dbManager.GetTable(dbName, addedTable).Rows.Count, exEqRowCount);
 
-            dbManager.DeleteEqualRows(addedTable);
+            dbManager.DeleteEqualRows(dbName, addedTable);
 
             int exNEqRowCount = 1;
-            Assert.AreEqual(dbManager.GetTable(addedTable).Rows.Count, exNEqRowCount);
+            Assert.AreEqual(dbManager.GetTable(dbName, addedTable).Rows.Count, exNEqRowCount);
         }
 
         [TestMethod]
@@ -75,21 +76,21 @@ namespace DBTest
             string savePath = "C:\\Users\\bubka\\source\\repos\\LocalDB\\DAL\\Src\\postTestDB.xml";
 
             DBManager saveDbManager = new DBManager();
-            saveDbManager.AddNewDB(dbName, savePath);
-            saveDbManager.AddTable(addedTable);
-            saveDbManager.AddColumn(addedTable, new IntegerType());
-            saveDbManager.AddColumn(addedTable, new CharType());
-            saveDbManager.AddRow(addedTable);
-            saveDbManager.EditRowItem(addedTable, 0, 0, "100");
-            saveDbManager.EditRowItem(addedTable, 1, 0, "a");
-            saveDbManager.SaveDb(savePath);
+            saveDbManager.AddDB(dbName);
+            saveDbManager.AddTable(dbName, addedTable);
+            saveDbManager.AddColumn(dbName, addedTable, new IntegerType());
+            saveDbManager.AddColumn(dbName, addedTable, new CharType());
+            saveDbManager.AddRow(dbName, addedTable);
+            saveDbManager.EditRowItem(dbName, addedTable, 0, 0, "100");
+            saveDbManager.EditRowItem(dbName, addedTable, 1, 0, "a");
+            saveDbManager.SaveDB();
 
             DBManager loadDbManager = new DBManager();
-            loadDbManager.LoadDb(savePath);
+            loadDbManager.GetDB(dbName);
 
-            Assert.AreEqual(loadDbManager.GetDbName(), saveDbManager.GetDbName());
-            CollectionAssert.AreEqual(loadDbManager.GetTablesName(), saveDbManager.GetTablesName());
-            Assert.AreEqual(loadDbManager.GetRowItem(addedTable, 0, 0), loadDbManager.GetRowItem(addedTable, 0, 0));
+            Assert.AreEqual(loadDbManager.GetDB(dbName).Name, saveDbManager.GetDB(dbName).Name);
+            CollectionAssert.AreEqual(loadDbManager.GetAllTableName(dbName), saveDbManager.GetAllTableName(dbName));
+            Assert.AreEqual(loadDbManager.GetRowItem(dbName, addedTable, 0, 0), loadDbManager.GetRowItem(dbName, addedTable, 0, 0));
         }
 
         

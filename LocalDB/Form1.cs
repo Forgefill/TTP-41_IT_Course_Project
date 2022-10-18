@@ -1,6 +1,6 @@
 using DAL;
 using DAL.Types;
-using DAL.DataBaseEntities;
+using DAL.DatabaseEntities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -13,6 +13,7 @@ namespace LocalDB
     public partial class Form1 : Form
     {
         DBManager dbManager;
+        string currentDB = null;
         string currentTable = null;
 
         public Form1()
@@ -20,9 +21,10 @@ namespace LocalDB
             InitializeComponent();
             databaseGridView.AllowUserToAddRows = false;
             dbManager = new DBManager();
-            dbManager.LoadDb(@"C:\Users\bubka\source\repos\LocalDB\DAL\Src\Cache.xml");
-            DbName.Text = dbManager.GetDbName();
-            currentTable = dbManager.GetAnyTableNameOrNull();
+            currentDB = "MyDB";
+            dbManager.GetDB(currentDB);
+            DbName.Text = currentDB;
+            currentTable = dbManager.GetAnyTableName(currentDB);
             RefreshTableList();
             RefreshGrid(currentTable);
         }
@@ -34,71 +36,52 @@ namespace LocalDB
         {
             string input = "Type here";
             if(ShowInputDialog("DB", ref input, "Add new db name") != DialogResult.OK) return;
-            string path = @"C:\Users\bubka\source\repos\LocalDB\DAL\Src";
 
-            folderBrowserDialog1.InitialDirectory = path;
-            folderBrowserDialog1.Description = "Choose folder for DB";
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-            {
-                path = folderBrowserDialog1.SelectedPath;
-            }
-            dbManager.SaveDb(dbManager.GetDbPath());
-            dbManager.AddNewDB(input, path);
+            
+            dbManager.SaveDB();
+            dbManager.AddDB(input);
             DbName.Text = input;
-            currentTable = dbManager.GetAnyTableNameOrNull();
+            currentDB = input;
+            currentTable = dbManager.GetAnyTableName(input);
             RefreshTableList();
             RefreshGrid(currentTable);
         }
 
         private void saveDbBtn_Click(object sender, EventArgs e)
         {
-            dbManager.SaveDb(dbManager.GetDbPath());
+            dbManager.SaveDB();
         }
 
-        private void SaveAsBtn_Click(object sender, EventArgs e)
-        {
-
-            string path = @"C:\Users\bubka\source\repos\LocalDB\DAL\Src";
-
-            saveFileDialog1.DefaultExt = ".xml";
-            saveFileDialog1.InitialDirectory = path;
-            saveFileDialog1.Filter = "XML Files (*.xml)|*.xml";
-            
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                path = saveFileDialog1.FileName;
-            }
-
-            dbManager.SaveDb(path);
-            dbManager.SetDbPath(path); 
-        }
 
         private void downloadDbBtn_Click(object sender, EventArgs e)
         {
-            string path = @"C:\Users\bubka\source\repos\LocalDB\DAL\Src\Cache.xml";
+            string dbName = "Cache";
             openFileDialog1.Multiselect = false;
             openFileDialog1.InitialDirectory = @"C:\Users\bubka\source\repos\LocalDB\DAL\Src";
             openFileDialog1.Filter = "XML Files (*.xml)|*.xml";
             openFileDialog1.FilterIndex = 0;
             openFileDialog1.DefaultExt = "xml";
+            
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                path = openFileDialog1.FileName;
+                
+                dbName = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
             }
 
             try
             {
-                dbManager.LoadDb(path);
+                dbManager.GetDB(dbName);
             }
             catch(Exception a)
             {
-                MessageBox.Show("Can`t download db from file\n" + "file path: " + path +"\n Error msg: " + a.Message,
+                MessageBox.Show("Can`t download db from file\n" + "file path: " + dbName +"\n Error msg: " + a.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            DbName.Text = dbManager.GetDbName();
-            currentTable = dbManager.GetAnyTableNameOrNull();
+            DbName.Text = dbName;
+            currentDB = dbName;
+            currentTable = dbManager.GetAnyTableName(dbName);
             RefreshTableList();
             RefreshGrid(currentTable);
         }
@@ -106,7 +89,7 @@ namespace LocalDB
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            dbManager.SaveDb("C:\\Users\\bubka\\source\\repos\\LocalDB\\DAL\\Src\\Cache.xml");
+            dbManager.SaveDB();
         }
 
         #endregion
@@ -132,22 +115,22 @@ namespace LocalDB
             {
                 case "Int":
                     IntegerType newInt = new IntegerType(columnName);
-                    dbManager.AddColumn(currentTable, newInt);
+                    dbManager.AddColumn(currentDB, currentTable, newInt);
                     break;
                 case "Char":
                     CharType newChar = new CharType(columnName);
-                    dbManager.AddColumn(currentTable, newChar);
+                    dbManager.AddColumn(currentDB, currentTable, newChar);
                     break;
                 case "String":
-                    dbManager.AddColumn(currentTable, new StringType(columnName));
+                    dbManager.AddColumn(currentDB, currentTable, new StringType(columnName));
                     break;
                 case "Real":
                     RealType newReal = new RealType(columnName);
-                    dbManager.AddColumn(currentTable, newReal);
+                    dbManager.AddColumn(currentDB, currentTable, newReal);
                     break;
                 case "Email":
                     EmailType newEmail = new EmailType(columnName);
-                    dbManager.AddColumn(currentTable, newEmail);
+                    dbManager.AddColumn(currentDB, currentTable, newEmail);
                     break;
                 case "Enum":
                     List<string> Enum = new List<string>();
@@ -155,7 +138,7 @@ namespace LocalDB
                     if (Enum.Count != 0)
                     {
                         EnumType newEnum = new EnumType(columnName, Enum);
-                        dbManager.AddColumn(currentTable, newEnum);
+                        dbManager.AddColumn(currentDB, currentTable, newEnum);
                     }
                     break;
             }
@@ -176,7 +159,7 @@ namespace LocalDB
             }
              
             int columnId = databaseGridView.SelectedCells[0].ColumnIndex;
-            dbManager.DeleteColumn(currentTable, columnId);
+            dbManager.DeleteColumn(currentDB, currentTable, columnId);
             RefreshGrid(currentTable);
             
         }
@@ -189,7 +172,7 @@ namespace LocalDB
             ShowInputDialog("Column", ref newClmnName, "Input name for column");
             int columnId = databaseGridView.SelectedCells[0].ColumnIndex;
 
-            dbManager.EditColumnName(currentTable, columnId, newClmnName);
+            dbManager.EditColumnName(currentDB, currentTable, columnId, newClmnName);
             databaseGridView.Columns[columnId].HeaderText = newClmnName;
         }
 
@@ -271,7 +254,7 @@ namespace LocalDB
             {
                 if (currentTable == null) currentTable = input;
                 tableListBox.Items.Add(input);
-                dbManager.AddTable(input);
+                dbManager.AddTable(currentDB, input);
             }
         }
 
@@ -286,12 +269,12 @@ namespace LocalDB
             string tableName = tableListBox.SelectedItem.ToString();
                 
 
-            dbManager.DeleteTable(tableName);
+            dbManager.DeleteTable(currentDB, tableName);
             tableListBox.Items.Remove(tableListBox.SelectedItem);
 
             if (currentTable == tableName)
             {
-                currentTable = dbManager.GetAnyTableNameOrNull();
+                currentTable = dbManager.GetAnyTableName(currentDB);
                 RefreshGrid(currentTable);
             }
         }
@@ -306,7 +289,7 @@ namespace LocalDB
                 
                 if(newNameInput == DialogResult.OK)
                 {
-                    dbManager.EditTableName(tableName, newName);
+                    dbManager.EditTableName(currentDB, tableName, newName);
                     if (currentTable == tableName) currentTable = newName;
                     RefreshTableList();
                 }
@@ -324,22 +307,22 @@ namespace LocalDB
         {
             DataGridViewCell editingCell = databaseGridView.CurrentCell;
             object cellValue = editingCell.Value;
-            BaseType CellType = dbManager.GetColumnTypeById(currentTable, e.ColumnIndex);
+            BaseType CellType = dbManager.GetColumnTypeById(currentDB, currentTable, e.ColumnIndex);
             
             if(cellValue == null)
             {
                 editingCell.Value = CellType.defValue;
-                dbManager.EditRowItem(currentTable, e.ColumnIndex, e.RowIndex, CellType.defValue);
+                dbManager.EditRowItem(currentDB, currentTable, e.ColumnIndex, e.RowIndex, CellType.defValue);
                 return;
             }
             
             if(CellType.isCorrect(cellValue.ToString()))
             {
-                dbManager.EditRowItem(currentTable, e.ColumnIndex, e.RowIndex, cellValue.ToString());
+                dbManager.EditRowItem(currentDB, currentTable, e.ColumnIndex, e.RowIndex, cellValue.ToString());
             }
             else
             {
-                editingCell.Value = dbManager.GetRowItem(currentTable, e.ColumnIndex, e.RowIndex);
+                editingCell.Value = dbManager.GetRowItem(currentDB, currentTable, e.ColumnIndex, e.RowIndex);
                 MessageBox.Show("Invalid data type, pls use next rules:\n" + CellType.TypeRule(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
@@ -354,10 +337,10 @@ namespace LocalDB
             }
 
             databaseGridView.Rows.Add();
-            dbManager.AddRow(currentTable);
+            dbManager.AddRow(currentDB, currentTable);
             RefreshGrid(currentTable);
 
-            List<Row> a = dbManager.GetTable(currentTable).Rows;
+            List<Row> a = dbManager.GetTable(currentDB, currentTable).Rows;
         }
 
         private void deleteRowBtn_Click(object sender, EventArgs e)
@@ -375,13 +358,13 @@ namespace LocalDB
 
             int rowId = databaseGridView.SelectedCells[0].RowIndex;
             databaseGridView.Rows.RemoveAt(rowId);
-            dbManager.DeleteRow(currentTable, rowId);
+            dbManager.DeleteRow(currentDB, currentTable, rowId);
         }
 
         private void removeDuplicatesBtn_Click(object sender, EventArgs e)
         {
             if (currentTable == null) return;
-            dbManager.DeleteEqualRows(currentTable);
+            dbManager.DeleteEqualRows(currentDB, currentTable);
             RefreshGrid(currentTable);
         }
         #endregion
@@ -438,7 +421,7 @@ namespace LocalDB
             databaseGridView.Columns.Clear();
             if (tableName == null) return;
 
-            Table table = dbManager.GetTable(tableName);
+            Table table = dbManager.GetTable(currentDB, tableName);
             List<string> defaultValues = new List<string>();
 
             for(int i = 0; i < table.columnTypes.Count; ++i)
@@ -483,7 +466,7 @@ namespace LocalDB
         {
 
             tableListBox.Items.Clear();
-            foreach(string a in dbManager.GetTablesName())
+            foreach(string a in dbManager.GetAllTableName(currentDB))
             {
                 tableListBox.Items.Add(a);
             }

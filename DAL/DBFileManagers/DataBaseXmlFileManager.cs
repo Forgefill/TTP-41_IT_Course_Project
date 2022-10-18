@@ -44,7 +44,7 @@ namespace DAL.DBFileManagers
             {
                 result = (Database)xmlSerializer.Deserialize(reader);
             }
-
+            
             return result;
         }
 
