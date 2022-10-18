@@ -68,6 +68,3 @@
 * **TestSaveLoadDB** - Тест для збереження і завантаження бази даних з диску.
 
 Код тестів можна переглянути за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/DBTest/UnitTest1.cs).
-
-
-Етап 3
