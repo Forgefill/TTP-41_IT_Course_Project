@@ -23,7 +23,7 @@
 
 **DataBaseFileManager** – абстрактний клас для збереження/завантаження бд в локальні файли. DataBaseXMLFileManager його реалізація для роботи з файлами типу ".xml".
 
-
+Реалізацію класів можна побачити за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/DAL)
 
 # Етап 2: 
 
@@ -48,12 +48,12 @@
 
 для введення імен бази даних, таблиці, стовпчика використовується додаткова форма:
 ![winform](	../img/InputForm.png)
-
 для введеня списку для перелічуваного типу даних використовується форма:
+
 ![winform](	../img/EnumInputForm.png)
 
 Програмна частина з'єднує бізнес логіку класа DBManager вказаного на діаграмі класів і можливості WinForm. 
-Код проекту можна переглянути (на сторінці проекту в GitHub)[https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/LocalDB]
+Код проекту можна переглянути [на github](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/LocalDB).
 ## Unit-test
 
 Для тестування бізнес логіки класу DBManager створено 3 unit-тести:
