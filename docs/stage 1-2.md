@@ -7,7 +7,7 @@
 
 ### діаграма класів
 
-![class diagram](	../img/ClassDiagram1.png)
+![class diagram](	../img/ClassDiagramStage1.png)
 
 Опис класів:
 
