@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace DAL.DataBaseEntities
+namespace DAL.DatabaseEntities
 {
     public class Table
     {

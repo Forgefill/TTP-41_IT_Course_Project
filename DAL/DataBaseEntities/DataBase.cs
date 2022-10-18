@@ -4,9 +4,9 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace DAL.DataBaseEntities
+namespace DAL.DatabaseEntities
 {
-    public class DataBase
+    public class Database
     {
         [XmlElement(ElementName ="DatabaseName")]
         public string Name { get; set; }
@@ -14,19 +14,20 @@ namespace DAL.DataBaseEntities
         [XmlElement()]
         public List<Table> Tables;
 
-        public DataBase(string name)
+        public Database(string name)
         {
             Name = name;
             Tables = new List<Table>();
         }
 
-        public DataBase() 
+        public Database() 
         {
             Tables = new List<Table>();
         }
 
         public Table GetTable(string name)
         {
+            if (!Tables.Any(x => x.Name == name)) throw new Exception("Table " + name + " does not exist");
             return Tables.First(x=>x.Name == name);
         }
 

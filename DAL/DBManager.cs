@@ -1,108 +1,100 @@
-﻿using DAL.DataBaseEntities;
+﻿using DAL.DatabaseEntities;
 using DAL.DBFileManagers;
-using DAL.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.WebSockets;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using DAL.DatabaseEntities;
+using DAL.DBFileManagers;
+using DAL.Types;
 
 namespace DAL
 {
     public class DBManager
     {
-        private DataBase database;
-        private string dbPath = "C:\\Users\\bubka\\source\\repos\\LocalDB\\DAL\\Src";
-        private DataBaseFileManager FileManager;
-        
 
-        public DBManager(string dbName)
-        {
-            database = new DataBase(dbName);
-            FileManager = new DataBaseXmlFileManager();
-            dbPath = dbPath + "\\" + dbName + ".xml";
-        }
+        private Database currentDatabase;
+        private DatabaseFileManager fileManager;
 
         public DBManager()
         {
-            dbPath = "C:\\Users\\bubka\\source\\repos\\LocalDB\\DAL\\Src\\Cache.xml";
-            FileManager = new DataBaseXmlFileManager();
+            fileManager = new DatabaseXmlFileManager();
+            currentDatabase = new Database();
         }
 
-        public Table GetTable(string tableName)
+
+        #region row
+
+        public void AddRow(string dbName, string tableName)
         {
-            return database.GetTable(tableName);
-        }
-        public BaseType GetColumnTypeById(string tableName, int columnId)
-        {
-            return database.GetTable(tableName).columnTypes[columnId];
-        }
-        public string? GetAnyTableNameOrNull()
-        {
-            if (database.Tables.Count > 0)
+            setDB(dbName);
+            Table table = currentDatabase.GetTable(tableName);
+            List<string> res = new List<string>();
+
+            foreach (BaseType a in table.columnTypes)
             {
-                return database.Tables[0].Name;
-            }
-            else return null;
-        }
-        public void AddTable(string tableName)
-        {
-            if (!database.Tables.Any(x => x.Name == tableName))
-            {
-                database.Tables.Add(new Table(tableName));
-            }
-        }
-        public void DeleteTable(string tableName)
-        {
-            database.Tables.Remove(database.GetTable(tableName));
-        }
-        public void EditTableName(string tableName, string value)
-        {
-            database.GetTable(tableName).Name = value;
-        }
-
-
-        public void DeleteRow(string tableName, int id)
-        {
-            database.GetTable(tableName).Rows.RemoveAt(id);
-        }
-        public void DeleteEqualRows(string tableName)
-        {
-            database.RemoveEqualRows(tableName);
-        }
-        public void AddRow(string tableName)
-        {
-            Table table = database.GetTable(tableName);
-            List<string> elements = new List<string>();
-
-            foreach(BaseType a in table.columnTypes)
-            {
-                elements.Add(a.defValue);
+                res.Add(a.defValue);
             }
 
-            table.Rows.Add(new Row(elements));
+            table.Rows.Add(new Row(res));
         }
-        public void EditRowItem(string tableName, int ColumnId, int RowId, string value)
+
+        public void DeleteRow(string dbName, string tableName, int rowId)
         {
-            Table table = database.GetTable(tableName);
+            setDB(dbName);
+            currentDatabase.GetTable(tableName).Rows.RemoveAt(rowId);
+        }
+
+        public void DeleteEqualRows(string dbName, string tableName)
+        {
+            setDB(dbName);
+            currentDatabase.RemoveEqualRows(tableName);
+        }
+
+        public Row GetRow(string dbName, string tableName, int rowId)
+        {
+            setDB(dbName);
+            return currentDatabase.GetTable(tableName).Rows[rowId];
+        }
+
+        public string GetRowItem(string dbName, string tableName, int ColumnId, int RowId)
+        {
+            setDB(dbName);
+            return currentDatabase.GetTable(tableName).Rows[RowId][ColumnId];
+        }
+
+        public void EditRowItem(string dbName, string tableName, int ColumnId, int RowId, string value)
+        {
+            setDB(dbName);
+            Table table = currentDatabase.GetTable(tableName);
             if (table.columnTypes[ColumnId].isCorrect(value))
             {
-                database.GetTable(tableName).Rows[RowId][ColumnId] = value;
+                currentDatabase.GetTable(tableName).Rows[RowId][ColumnId] = value;
             }
-            
-        }
-        public string GetRowItem(string tableName, int ColumnId, int RowId)
-        {
-            return database.GetTable(tableName).Rows[RowId][ColumnId];
         }
 
+        #endregion
 
-        public void AddColumn(string tableName, BaseType type)
+
+        #region column
+
+        public List<BaseType> GetAllColumnTypes(string dbName, string tableName)
         {
-            Table t = database.GetTable(tableName);
+            setDB(dbName);
+            return currentDatabase.GetTable(tableName).columnTypes;
+        }
+
+        public BaseType GetColumnTypeById(string dbName, string tableName, int columnId)
+        {
+            setDB(dbName);
+            return currentDatabase.GetTable(tableName).columnTypes[columnId];
+        }
+
+        public void AddColumn(string dbName, string tableName, BaseType type)
+        {
+            setDB(dbName);
+            Table t = currentDatabase.GetTable(tableName);
             t.columnTypes.Add(type);
 
             foreach (Row s in t.Rows)
@@ -110,53 +102,148 @@ namespace DAL
                 s.elements.Add(type.defValue);
             }
         }
-        public void DeleteColumn(string tableName, int ColumnId)
-        {
-            Table table = database.GetTable(tableName);
 
-            table.columnTypes.RemoveAt(ColumnId);
-            foreach(var a in table.Rows)
+        public void DeleteColumn(string dbName, string tableName, int columnId)
+        {
+            setDB(dbName);
+            Table table = currentDatabase.GetTable(tableName);
+
+            table.columnTypes.RemoveAt(columnId);
+            foreach (var a in table.Rows)
             {
-                a.elements.RemoveAt(ColumnId);
+                a.elements.RemoveAt(columnId);
             }
         }
-        public void EditColumnName(string tableName, int ColumnId, string value)
+
+        public void EditColumnName(string dbName, string tableName, int columnId, string value)
         {
-            Table table = database.GetTable(tableName);
-            table.columnTypes[ColumnId].name = value;
+            setDB(dbName);
+            Table table = currentDatabase.GetTable(tableName);
+
+            table.columnTypes[columnId].name = value;
         }
 
-        public void SaveDb(string path)
+        #endregion
+
+        #region Table
+
+        public List<string> GetAllTableName(string dbName)
         {
-            FileManager.SaveDatabase(path, database);
-        }
-        public void LoadDb(string filePath)
-        {
-            dbPath = filePath;
-            database = FileManager.LoadDatabase(filePath);
-        }
-        public void AddNewDB(string name, string path)
-        { 
-            dbPath = path + "\\" + name + ".xml";
-            database = new DataBase(name);
-        }
-        public string GetDbPath()
-        {
-            return dbPath;
-        }
-        public void SetDbPath(string newPath)
-        {
-            dbPath = newPath;
-        }
-        public string GetDbName()
-        {
-            return database.Name;
+            setDB(dbName);
+            return currentDatabase.Tables.Select(x => x.Name).ToList();
         }
 
-
-        public List<string> GetTablesName()
+        public Table GetTable(string dbName, string tableName)
         {
-            return database.Tables.Select(x => x.Name).ToList();    
+            setDB(dbName);
+            return currentDatabase.GetTable(tableName);
+        }
+
+        public void AddTable(string dbName, string tableName)
+        {
+            setDB(dbName);
+            if (!tableExist(tableName))
+            {
+                currentDatabase.Tables.Add(new Table(tableName));
+            }
+        }
+
+        public void DeleteTable(string dbName, string tableName)
+        {
+            setDB(dbName);
+            currentDatabase.Tables.Remove(currentDatabase.GetTable(tableName));
+        }
+
+        public void EditTableName(string dbName, string tableName, string newName)
+        {
+            setDB(dbName);
+            if (!tableExist(newName))
+            {
+                currentDatabase.GetTable(tableName).Name = newName;
+            }
+            else
+            {
+                throw new Exception("Table with name " + newName + " already exist");
+            }
+        }
+
+        public string? GetAnyTableName(string dbName)
+        {
+            setDB(dbName);
+            if (currentDatabase.Tables.Count > 0)
+            {
+                return currentDatabase.Tables[0].Name;
+            }
+            else return null;
+        }
+
+        #endregion
+
+        #region DB
+
+        public Database GetDB(string dbName)
+        {
+            setDB(dbName);
+            return currentDatabase;
+        }
+
+        public void DeleteDB(string dbName)
+        {
+            fileManager.DeleteDatabase(dbName);
+        }
+
+        public void AddDB(string dbName)
+        {
+            if (!dbExist(dbName))
+            {
+                fileManager.SaveDatabase(new Database(dbName));
+            }
+        }
+
+        public void SaveDB()
+        {
+            fileManager.SaveDatabase(currentDatabase);
+        }
+
+        public List<string> GetDbsName()
+        {
+            return fileManager.GetDatabasesName();
+        }
+
+        #endregion
+
+        private bool tableExist(string tableName)
+        {
+            if (currentDatabase.Tables.Any(x => x.Name == tableName)) return true;
+            else return false;
+        }
+
+        private bool dbExist(string dbName)
+        {
+            if (fileManager.GetDatabasesName().Any(x => x == dbName)) return true;
+            else return false;
+        }
+
+        private void setDB(string dbName)
+        {
+            if (!dbExist(dbName))
+            {
+                throw new Exception("Database " + dbName + " does not exist");
+            }
+            else if (currentDatabase.Name == dbName)
+            {
+                return;
+            }
+            else
+            {
+                if (currentDatabase.Name != null) fileManager.SaveDatabase(currentDatabase);
+                currentDatabase = fileManager.LoadDatabase(dbName);
+            }
+        }
+
+        ~DBManager()
+        {
+            SaveDB();
         }
     }
 }
