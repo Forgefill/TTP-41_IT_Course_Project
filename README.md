@@ -24,3 +24,6 @@
 ## Діаграма прецедентів
 
 ![Use-Case stage 0](img/UseCase0.png?raw=true)
+
+
+[Етап 1-2](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage%201-2.md) Розробка локальної версії СУТБД
