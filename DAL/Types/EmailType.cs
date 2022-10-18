@@ -16,7 +16,11 @@ namespace DAL.Types
             typeName = "Email";
         }
 
-        public EmailType() : base() { }
+        public EmailType() : base() {
+            name = "Email";
+            defValue = "example@mail.com";
+            typeName = "Email";
+        }
 
         public override string TypeRule()
         {

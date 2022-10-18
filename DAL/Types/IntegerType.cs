@@ -15,7 +15,11 @@ namespace DAL.Types
             defValue = "0";
         }
 
-        public IntegerType() : base() { }
+        public IntegerType() : base() {
+            name = "Int";
+            typeName = "Int";
+            defValue = "0";
+        }
 
         public override string TypeRule()
         {

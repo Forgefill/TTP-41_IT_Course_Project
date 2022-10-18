@@ -14,7 +14,11 @@ namespace DAL.Types
             defValue = string.Empty;
         }
 
-        public StringType():base() { }
+        public StringType():base() {
+            name = "String";
+            typeName = "String";
+            defValue = string.Empty;
+        }
 
         public override string TypeRule()
         {

@@ -14,7 +14,11 @@ namespace DAL.Types
             defValue = "0.0";
         }
 
-        public RealType() : base() { }
+        public RealType() : base() {
+            name = "Real";
+            typeName = "Real";
+            defValue = "0.0";
+        }
 
         public override string TypeRule()
         {

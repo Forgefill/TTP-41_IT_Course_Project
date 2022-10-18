@@ -14,7 +14,11 @@ namespace DAL.Types
             typeName = "Char";
         }
 
-        public CharType() : base() { }
+        public CharType() : base() {
+            name = "Char";
+            defValue = string.Empty;
+            typeName = "Char";
+        }
 
         public override string TypeRule()
         {

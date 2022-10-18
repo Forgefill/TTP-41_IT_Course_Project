@@ -72,6 +72,10 @@ namespace DAL
             {
                 currentDatabase.GetTable(tableName).Rows[RowId][ColumnId] = value;
             }
+            else
+            {
+                throw new Exception("incorrect value.\nPls use next rules: " + table.columnTypes[ColumnId].TypeRule());
+            }
         }
 
         #endregion
