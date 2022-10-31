@@ -19,22 +19,15 @@
 * Система виводить повідомлення з помилкою.
 * Потік повертається на етап 2 основного потоку.
 #### Потік подій для прецедента "Видалити рядки, що повторюються"
-* Користувач натискає кнопку "Table intersection"(A1).
-* Користувач вводить назву першої таблиці(А2).
-* Користувач вводить назву другої таблиці(А2).
-* Користувач вводить назви полів для перетину(А3). <br /> <br />
+* Користувач обирає базу даних.
+* Користувач обирає таблицю.
+* Користувач натискає кнопку "Remove equals row"(A1). <br /> <br />
 **Альтернативні потоки:** <br /> <br />
 А1. Повернення в головне меню
 * Користувач закриває вспливаюче вікно.
 * Потік повертається на етап 1 основного потоку. <br />
-А2. Таблиці з введеною назвою не існує
-* Система виводить повідомлення з помилкою.
-* Потік повертається на етап 2(3). <br />
-А3. Одного чи декількох полів не існує в введених таблицях
-* Система виводить повідомлення з помилкою.
-* Потік повертається на етап 4 основного потоку.
 #### Потік подій для прецедента "Додати таблицю"
-* Користувач відкриває базу даних.
+* Користувач відкриває базу даних. 
 * Користувач натискає кнопку "Add table"(А1).
 * Користувач вводить назву таблиці в вікні, яке з'явилося(А2, А3).
 * Користувач натискає кнопку Ок. <br /> <br />
@@ -53,35 +46,35 @@ A3. Назва таблиці введена некоректно
 ![Alt text](../img/ClassDiagramStage1.png?raw=true)
 
 
-## VOPC-діаграма для прецедента "Переглянути перетин таблиць"
-![Alt text](../img/VOPCDiagram.png?raw=true)
+## VOPC-діаграма для прецедента "Видалити рядки, що повторюються"
+![Alt text](../img/VopcClassDiagram.drawio.png?raw=true)
 
 
 ## Діаграми взаємодії
 
 ### Create database
-![Alt text](../img/Interact1.png)
+![Alt text](../img/SequanceCreateDatabase.drawio.png?raw=true)
 
 ### Load database
-![Alt text](../img/Interac2.png)
+![Alt text](../img/SequenceLoadDatabase.drawio.png?raw=true)
 
-### Table intersection
-![Alt text](../img/Interac3.png)
+### Remove equal rows
+![Alt text](../img/SequenceRemoveEqualRows.drawio.png?raw=true)
 
 ### Add table
-![Alt text](../img/Interac4.png)
+![Alt text](../img/SequenceAddTable.drawio.png?raw=true)
 
 
 ## Діаграми компонентів
 
 ### Для нерозподіленої системи
-![Alt text](../img/Comp.png)
+![Alt text](../img/CompDiagramNonDistributed.png)
 
 ### Для розподіленої системи
 
-![Alt text](../img/CompDistr.png)
+![Alt text](../img/CompDiagramDistributed.png)
 
 
 ## Діаграма розгортання
 
-![Alt text](../img/Depl.png)
+![Alt text](../img/DeploymentDiagram.drawio.png)
