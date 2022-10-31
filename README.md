@@ -31,4 +31,5 @@
 * [Використання UML при проектуванні та специфікації програмних систем](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage%204.md)
 * [Розробка локальної версії СУТБД](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage%201-2.md)
 * [REST web-сервіси](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage3.md)
-
+* [Розробка OpenApi Specification](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage3.md)
+* [Asp.Net Web Api](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage3.md)
