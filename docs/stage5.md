@@ -15,7 +15,7 @@
 * ContentController;
 
 Контролери повністю реалізують всі події, що описаний в [Use-Case](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/img/UseCase0.png) діаграмі проекту.
-Конкретний код можна переглянути за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/DatabaseWebMVC/Controllers).
+Конкретний код можна переглянути за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/DatabaseWebMVC).
 
 ## Список баз даних:
 ![All Databases](../img/MVC/AlldbMVC.png)
