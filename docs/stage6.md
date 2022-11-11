@@ -75,7 +75,7 @@ namespace MongoWebApi.Services
 
 ![Swagger add](../img/MongoDB/ApiAddAge.png)
 
-### Result in Mongo
+### Result in Mongo:
 
 ![View models](../img/MongoDB/MongoApiResult.png)
 
