@@ -1,0 +1,79 @@
+﻿@model DatabaseWebMVC.Models.ColumnViewModel
+
+@{
+    ViewData["Title"] = "CreateColumn";
+}
+
+<h1>CreateColumn</h1>
+
+<hr />
+<div class="row" style="padding: 5px">
+    <div class="col-md-4">
+        <form asp-action="CreateColumn">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="dbName" type="hidden" value="@Model.dbName" class="form-control" />
+                <span asp-validation-for="dbName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="tableName" type="hidden" value="@Model.tableName" class="form-control" />
+                <span asp-validation-for="tableName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ColumnType" class="control-label"></label>
+                <select id="clmType" onchange="typeChange()"  class="form-control" asp-for="ColumnType" asp-items="@(new SelectList(Model.availableTypes))"></select>
+            </div>
+
+            <div id="enumInput" class="form-group" style="visibility:hidden">
+                <label asp-for="enumTypes" class="control-label"></label>
+                <input asp-for="enumTypes" value="empty" id="enumValues" class="form-control" readonly/>
+                
+                <div class="form-label">
+                    <input id="enumValue" />
+                    <input type="button" value="Add string to enum" onclick="addToEnum()">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit"  value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back", "Index", "Content", new {dbName=Model.dbName, tableName = Model.tableName})
+</div>
+
+<script type="text/javascript">
+
+    function typeChange()
+    {
+        if (document.getElementById("clmType").value != "Enum")
+        {
+            document.getElementById("enumValues").value = "empty";
+            document.getElementById('enumInput').style.visibility = 'hidden';
+        }
+        else
+        {
+            document.getElementById("enumValues").value = "";
+            document.getElementById('enumInput').style.visibility = 'visible';
+        }
+    }
+
+    function addToEnum()
+    {
+        var input = document.getElementById("enumValue").value + ';';
+        
+        document.getElementById("enumValues").value += input;
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,41 @@
+﻿@model DatabaseWebMVC.Models.DatabaseViewModel
+
+@{
+    ViewData["Title"] = Model.Name + " Tables";
+}
+
+<h1>@Model.Name</h1>
+
+<p>
+    @Html.ActionLink("Add New Table", "Create", "Table", new{dbName = Model.Name})
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Table
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TablesName)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Table", new { dbName = Model.Name, tableName = item}) |
+                    @Html.ActionLink("Details", "Details", "Table", new { dbName = Model.Name, tableName = item }) |
+                    @Html.ActionLink("Delete", "Delete", new { dbName = Model.Name, tableName = item })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index" asp-controller="Database">Back to Databases</a>
+</div>

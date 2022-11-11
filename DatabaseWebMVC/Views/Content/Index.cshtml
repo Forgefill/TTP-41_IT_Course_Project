@@ -1,0 +1,111 @@
+﻿@model DatabaseWebMVC.Models.TableViewModel
+
+<style>
+table, th, td {
+  border:1px solid black;
+}
+
+.centerContent{
+text-align: center; 
+vertical-align: middle;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.headerBackground {background-color: lightgrey}
+
+.add {
+        background-color: seagreen
+}
+
+    .delete {background-color: #D70000;}
+.lightG{ color:seagreen}
+.warning{color:darkred}
+.itemLink{
+    text-decoration:none;
+    color:black;
+}
+</style>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>DB - @Model.dbName</h1>
+
+<h2>Table - @Model.tableName</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="background-color:lightgrey"></th>
+            @for(int i = 0; i < Model.columnTypes.Count; ++i)
+            {
+                <th class="centerContent" style="background-color:lightgrey">
+                    @Html.ActionLink("Delete column", "DeleteColumn", "Content", new {dbName = Model.dbName, tableName = Model.tableName, columnId = i})
+                    |@Html.ActionLink("Edit column", "EditColumn", "Content", new {dbName = Model.dbName, tableName = Model.tableName, Id = i})
+                </th>
+            }
+        </tr>
+
+        <tr>
+            <th style="background-color:lightgrey"></th>
+            @foreach (BaseType item in Model.columnTypes)
+            {
+                <th class="lightG centerContent ">
+                    @item.name
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for(int i = 0; i < Model.elements.Count; ++i)
+            {
+                <tr>
+
+                <td style="background-color:lightgrey">
+                    @Html.ActionLink("Delete row", "DeleteRow", "Content", new {dbName = Model.dbName, tableName = Model.tableName, rowId = i}, new {type = "button", @class="button delete"})
+                </td>
+
+                    @for(int j = 0; j < Model.elements[i].Count; ++j)
+                    {
+                        @if(Model.elements[i][j] != string.Empty) 
+                        {
+
+                            <td>
+                            @Html.ActionLink(@Model.elements[i][j], "EditRowItem", "Content", new {dbName = Model.dbName, tableName = Model.tableName, rowId = i, columnId=j}, new {@class="itemLink"})
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="warning">
+                            @Html.ActionLink("empty", "EditRowItem", "Content", new {dbName = Model.dbName, tableName = Model.tableName, rowId = i, columnId=j}, new {@class="warning"})
+                                </td>
+                        }
+                    }
+
+                </tr>
+            }
+    </tbody>
+</table>
+
+
+@Html.ActionLink("Delete Equal Rows", "DeleteEqRows", "Content", new {dbName = Model.dbName, tableName = Model.tableName}, new {type = "button", @class="button delete"})
+
+@Html.ActionLink("Add row", "CreateRow", "Content", new {dbName = Model.dbName, tableName = Model.tableName}, new {type = "button", @class="button add"})
+
+@Html.ActionLink("Add column", "CreateColumn", "Content", new {dbName = Model.dbName, tableName = Model.tableName}, new {type = "button", @class="button add"})
+
+
+<br />
+@Html.ActionLink("Back to Tables", "Index", "Table", new {dbName = Model.dbName})

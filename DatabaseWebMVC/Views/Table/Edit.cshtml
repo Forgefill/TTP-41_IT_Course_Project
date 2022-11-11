@@ -1,0 +1,41 @@
+﻿@model DatabaseWebMVC.Models.EditTableViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>@Model.tableName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="dbName" type="hidden" value="@Model.dbName" class="form-control" />
+                <span asp-validation-for="dbName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="tableName" type="hidden" value="@Model.tableName" class="form-control" />
+                <span asp-validation-for="tableName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="newTableName" class="control-label"></label>
+                <input asp-for="newTableName" class="form-control" />
+                <span asp-validation-for="newTableName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to tables", "Index", "Table", new {dbName = Model.dbName})
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
