@@ -1,7 +1,7 @@
 [Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
 
 
-# Asp.Net web MVC
+# ASP.NET web MVC
 
 
 
