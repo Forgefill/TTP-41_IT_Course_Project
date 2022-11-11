@@ -14,11 +14,19 @@
 
 Контролери повністю реалізують всі події, що описаний в [Use-Case](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/img/UseCase0.png) діаграмі проекту.
 Конкретний код можна переглянути за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/DatabaseWebMVC/Controllers).
-Вигляд списку баз даних та таблиць конкретної БД:
+
+## Список баз даних:
 ![All Databases](../img/MVC/AlldbMVC.png)
 
+## Таблиці конкретної БД:
 ![All Tables](../img/MVC/AllTablesMVC.png)
 
+Веб-сторінки видалення БД/таблиці та редагування назв тривіальні.
 
+## Перегляд таблиці і операції над рядками та стовпчиками:
+![Table data](../img/MVC/TableDetailsMVC.png)
+
+## Додавання стовпчиків:
+![Add column](../img/MVC/CreateColumnMVC.png)
 
 [Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
