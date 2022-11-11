@@ -12,8 +12,13 @@
 * TableController;
 * ContentController;
 
-Контролери повністю реалізують інтерфейс, що описаний в [Use-Case](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/img/UseCase0.png) діаграмі проекту.
-Конкретний код можна переглянути за посиланням
+Контролери повністю реалізують всі події, що описаний в [Use-Case](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/img/UseCase0.png) діаграмі проекту.
+Конкретний код можна переглянути за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/DatabaseWebMVC/Controllers).
+Вигляд списку баз даних та таблиць конкретної БД:
+![All Databases](../img/MVC/AlldbMVC.png)
+
+![All Tables](../img/MVC/AllTablesMVC.png)
+
 
 
 [Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
