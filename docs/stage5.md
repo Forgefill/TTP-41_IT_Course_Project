@@ -12,6 +12,8 @@
 * TableController;
 * ContentController;
 
+Контролери повністю реалізують інтерфейс, що описаний в [Use-Case](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/img/UseCase0.png) діаграмі проекту.
+Конкретний код можна переглянути за посиланням
 
 
 [Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
