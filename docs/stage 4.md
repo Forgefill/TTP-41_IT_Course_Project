@@ -1,3 +1,4 @@
+[Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
 # Використання UML при проектуванні та специфікації програмних систем
 ## Діаграма прецедентів
 ![Alt text](../img/UseCase0.png?raw=true)
@@ -74,3 +75,5 @@ A3. Назва таблиці введена некоректно
 ## Діаграма розгортання
 
 ![Alt text](../img/DeploymentDiagram.drawio.png)
+
+[Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
