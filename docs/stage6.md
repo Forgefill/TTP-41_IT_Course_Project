@@ -1,3 +1,5 @@
+[Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
+
 # Web Api with mongoDB
 
 Для роботи з MongoDB розроблено тип даних [Column](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/MongoWebApi/Models), що має інформацію про тип даних в колонці, ім'я колонки, стандартне значення і елементи в колонці. Від нього наслідуються класи **EnumColumn**, **EmailColumn**, **StringColumn**, **CharColumn**, **IntegerColumn**, **RealColumn**, що є представленням відповідних типів даних, що зберігаються в базу даних MongoDB. До проекту завантажимо офіційний driver mongo для .NET, **MongoDB.Driver**. 
@@ -66,3 +68,17 @@ namespace MongoWebApi.Services
 Весь код можна переглянути за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/MongoWebApi/Services/MongoDBManager.cs).
 
 Цей сервіс використано в стандартному webApi для отримання доступу до сервісу з боку клієнта. [Детальніше про створення webApi](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage3.md).
+
+Використаємо swagger та mongoDB compass для створення бази даних та таблиці test, додавання туди IntegerColumn і трьох рядків:
+
+### Swagger:
+
+![Swagger add](../img/MongoDB/ApiAddAge.png)
+
+### Result in Mongo
+
+![View models](../img/MongoDB/MongoApiResult.png)
+
+
+
+[Сторінка проекту](https://github.com/Forgefill/TTP-41_IT_Course_Project)
