@@ -4,7 +4,7 @@
   
 Встановлено фреймворк для роботи з JSON в .NET - **Newtonsoft**. Створено класи ColumnConverter i ColumnSpecifiedConcreteClassConverter, що серіалізують модель даних з наслідуванням в JSON, переглянити їх код можна за [посиланням.](https://github.com/Forgefill/TTP-41_IT_Course_Project/tree/master/MongoWebApi/JsonHelpers)
 
-Створено сервіс MongoDBManager:
+Створено сервіс MongoDBManager, список методів цього сервісу:
 
 ```C#
 using MongoDB.Driver;
@@ -62,3 +62,7 @@ namespace MongoWebApi.Services
     }
 }
 ```
+
+Весь код можна переглянути за [посиланням](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/MongoWebApi/Services/MongoDBManager.cs).
+
+Цей сервіс використано в стандартному webApi для отримання доступу до сервісу з боку клієнта. [Детальніше про створення webApi](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage3.md).
