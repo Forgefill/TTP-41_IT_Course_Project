@@ -3,6 +3,8 @@
 using System.Xml.Linq;
 using System.Linq;
 using System.Xml.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAL.DatabaseEntities
 {

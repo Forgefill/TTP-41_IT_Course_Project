@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAL.DatabaseEntities
 {
@@ -12,6 +14,7 @@ namespace DAL.DatabaseEntities
     {
         [XmlElement(ElementName ="TableName")]
         public string Name { get; set; }
+
 
         public List<Row> Rows;
 

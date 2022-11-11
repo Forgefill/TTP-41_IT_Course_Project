@@ -6,12 +6,15 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAL.Types
 {
     
     public abstract class BaseType
     {
+        
         [XmlElement(ElementName ="ColumnName")]
         public string name;
         [XmlElement(ElementName ="TypeName")]

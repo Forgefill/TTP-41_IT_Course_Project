@@ -8,11 +8,11 @@ namespace DAL.Types
 {
     public class EnumType:BaseType
     {
-        public List<string> EnumTypes;
+        public List<string> enumValues;
 
         public EnumType(string name, List<string> enumValues):base(name)
         {
-            EnumTypes = enumValues;
+            this.enumValues = enumValues;
             defValue = enumValues[0];
             typeName = "Enum";
         }
@@ -25,7 +25,7 @@ namespace DAL.Types
         }
         public override bool isCorrect(string value)
         {
-            return EnumTypes.Any(x => x == value);
+            return enumValues.Any(x => x == value);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace LocalDB
             InitializeComponent();
             databaseGridView.AllowUserToAddRows = false;
             dbManager = new DBManager();
-            currentDB = "MyDB";
+            currentDB = "test";
             dbManager.GetDB(currentDB);
             DbName.Text = currentDB;
             currentTable = dbManager.GetAnyTableName(currentDB);
@@ -440,7 +440,7 @@ namespace LocalDB
                 {
                     EnumType Enum = (EnumType)a;
                     DataGridViewComboBoxColumn dgvCmb = new DataGridViewComboBoxColumn();
-                    foreach(string b in Enum.EnumTypes)
+                    foreach(string b in Enum.enumValues)
                     {
                         dgvCmb.Items.Add(b);
                     }
