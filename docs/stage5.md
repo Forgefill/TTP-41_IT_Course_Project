@@ -7,6 +7,8 @@
 
 ![View models](../img/ViewModels.png)
 
+Для збереження баз даних використано клас DBManager створений на [етапі локальної СКБД](https://github.com/Forgefill/TTP-41_IT_Course_Project/blob/master/docs/stage%201-2.md). Його зареєстровано в класі Startup і використовуючи DI використано в контролерах проекту.
+
 Створено три контролери, що відповідають за зв'язок між моделями бази і view, що отримує клієнт, а саме:
 * DatabaseController;
 * TableController;
