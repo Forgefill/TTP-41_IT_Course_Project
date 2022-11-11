@@ -8,9 +8,9 @@
 ![View models](../img/ViewModels.png)
 
 Створено три контролери, що відповідають за зв'язок між моделями бази і view, що отримує клієнт, а саме:
-*DatabaseController;
-*TableController;
-*ContentController;
+* DatabaseController;
+* TableController;
+* ContentController;
 
 
 
